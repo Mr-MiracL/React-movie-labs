@@ -23,6 +23,7 @@ const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
+ 
 
   return (
     <>
@@ -59,6 +60,16 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
+      <Paper component="ul" sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", listStyle: "none", padding: 1.5, margin: 0 }}>
+        <li>
+          <Chip label="Production Countries" sx={{ margin: 0.5 }} color="primary" />
+        </li>
+        {movie.production_countries.map((country) => (
+          <li key={country.name}>
+            <Chip label={country.name} sx={{ margin: 0.5 }} />
+          </li>
+        ))}
+      </Paper>
       <Fab
         color="secondary"
         variant="extended"
@@ -78,4 +89,5 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
       </>
   );
 };
+
 export default MovieDetails ;
