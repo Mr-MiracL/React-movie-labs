@@ -1,38 +1,50 @@
-import React from "react";
-import PlaylistAddIcon from "@mui/icons-material/Favorite";
-import MovieDetails from "../components/movieDetails/";
-import PageTemplate from "../components/templateMoviePage";
-import { getUpcomingMovies} from '../api/tmdb-api'
-import { useQuery } from "react-query";
+import React, { useContext } from "react";
+import PageTemplate from "../components/templateMovieListPage";
+import { MoviesContext } from "../contexts/moviesContext";
+import { useQueries } from "react-query";
+import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
+import WriteReview from "../components/cardIcons/writeReview";
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
-const MustWatchPage = (props) => {
-    
-    const { data, movie, error, isLoading, isError } = useQuery(
-      "discover", getUpcomingMovies
-    )
-   
+const MustWatchPage = () => {
+  const {mustWatchPage: movieIds } = useContext(MoviesContext);
+
+  const mustWatchQueries = useQueries(
+    movieIds.map((movieId) => {
+      return {
+        queryKey: ["movie", { id: movieId }],
+        queryFn: getMovie,
+      };
+    })
+  );
+  // Check if any of the parallel queries is still loading.
+  const isLoading = mustWatchQueries.find((m) => m.isLoading === true);
+
   if (isLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
+  const movies = mustWatchQueries.map((q) => {
+    q.data.genre_ids = q.data.genres.map(g => g.id)
+    return q.data
+  });
 
- 
+
   return (
-    <>
-      {movie ? (
-        <>
-          <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} />
-          </PageTemplate>
-        </>
-      ) : (
-        <p>Waiting for movie details</p>
-      )}
-    </>
+    <PageTemplate
+      title="mustwatch"
+      movies={movies}
+      action={(movie) => {
+        return (
+          <>
+  <AddToMustWatchIcon movie={movie}/>      
+           
+            <WriteReview movie={movie} />
+          </>
+        );
+      }}
+    />
   );
 };
 
