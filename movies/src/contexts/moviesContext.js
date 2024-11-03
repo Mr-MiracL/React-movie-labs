@@ -16,7 +16,17 @@ const MoviesContextProvider = (props) => {
     setFavorites(newFavorites)
   };
   const [myReviews, setMyReviews] = useState( {} ) 
-
+  const [mustWatch, setMustWatch] = useState( [] )
+  const addToMustWatch = (movie) => {
+    let newMustWatch = [];
+    if (!mustWatch.includes(movie.id)){
+      newMustWatch = [...mustWatch, movie.id];
+    }
+    else{
+      newMustWatch = [...mustWatch];
+    }
+    setMustWatch(newMustWatch)
+  };
   // We will use this function in the next step
   const removeFromFavorites = (movie) => {
     setFavorites( favorites.filter(
@@ -34,6 +44,8 @@ const MoviesContextProvider = (props) => {
         addToFavorites,
         removeFromFavorites,
         addReview,
+        mustWatch,
+        addToMustWatch,
       }}
     >
       {props.children}

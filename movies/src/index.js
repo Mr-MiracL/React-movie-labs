@@ -11,7 +11,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
-
+import MustWatchPage from "./pages/mustWatchPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,7 +36,7 @@ const App = () => {
             <Route path="*" element={ <Navigate to="/" /> } />
             <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
             <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-
+            <Route path="/movies/mustWatch" element={<MustWatchPage />} />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
