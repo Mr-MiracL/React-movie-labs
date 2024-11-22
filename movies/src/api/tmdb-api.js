@@ -49,6 +49,7 @@ export const getMovie = (args) => {
    });
   };
   
+
   export const getMovieImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;

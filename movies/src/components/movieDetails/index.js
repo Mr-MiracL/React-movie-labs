@@ -70,6 +70,16 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           </li>
         ))}
       </Paper>
+      <Paper component="ul" sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", listStyle: "none", padding: 1.5, margin: 0 }}>
+        <li>
+          <Chip label="Original language" sx={{ margin: 0.5 }} color="primary" />
+        </li>
+        
+          
+            <Chip label={`${movie.original_language}`} sx={{ margin: 0.5 }} />
+          
+        
+      </Paper>
       <Fab
         color="secondary"
         variant="extended"
