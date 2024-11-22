@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from "react-query";
 import { getNowPlayings } from "../api/tmdb-api";
@@ -7,7 +7,7 @@ import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 
 const NowPlayingPage = (props) => {
 
-    const {  data, error, isLoading, isError }  = useQuery('discovery', getNowPlayings)
+    const {  data, error, isLoading, isError }  = useQuery('discover', getNowPlayings)
   
     if (isLoading) {
       return <Spinner />
@@ -20,11 +20,11 @@ const NowPlayingPage = (props) => {
 
     const newFavorites=movies.filter(p=>p.newFavorites)
     localStorage.setItem('newFavorites', JSON.stringify(newFavorites))
-    const addToFavorites=(movieId)=>true
+  
 
     return(
         <PageTemplate
-        title="Discover Movies"
+        title="NowPlaying Movies"
         movies={movies}
         action={(movie) => {
           return <AddToFavoritesIcon movie={movie} />
