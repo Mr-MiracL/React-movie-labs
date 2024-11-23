@@ -74,8 +74,6 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <li>
           <Chip label="Original language" sx={{ margin: 0.5 }} color="primary" />
         </li>
-        
-          
             <Chip label={`${movie.original_language}`} sx={{ margin: 0.5 }} />
           
         

@@ -1,4 +1,4 @@
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres,getMovies} from "../../api/tmdb-api";
 import React, {useState, useEffect}  from "react";
 import Card from "@mui/material/Card";
 import { useQuery } from "react-query";
@@ -23,19 +23,24 @@ const formControl =
 
 export default function FilterMoviesCard(props) {
 
-  const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  const { data, error, isLoading, isError } = useQuery("genres", getGenres, "languages", getMovies);
+ 
 
-  if (isLoading) {
+  if (isLoading ) {
     return <Spinner />;
   }
 
   if (isError) {
     return <h1>{error.message}</h1>;
   }
+
   const genres = data.genres;
+  
+  
   if (genres[0].name !== "All"){
     genres.unshift({ id: "0", name: "All" });
   }
+ 
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -49,6 +54,9 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
+  const handleLanguageChange= (e)=>{
+    handleChange(e,"language" , e.target.value)
+  }
   return (
     <Card 
       sx={{
@@ -85,6 +93,25 @@ export default function FilterMoviesCard(props) {
                 </MenuItem>
               );
             })}
+          </Select>
+        </FormControl>
+        <FormControl sx={{...formControl}}>
+          <InputLabel id="language-label">language</InputLabel>
+          <Select
+    labelId="language-label"
+    id="language-select"
+    defaultValue=""
+    value={props.languageFilter}
+    onChange={handleLanguageChange}
+    label="language"
+  >
+        
+        <MenuItem value="">
+          <em>All Languages</em>
+        </MenuItem>
+        <MenuItem key={`${getMovies.language}`} value={`${getMovies.language}`}>
+        {getMovies.language}
+        </MenuItem>
           </Select>
         </FormControl>
       </CardContent>
