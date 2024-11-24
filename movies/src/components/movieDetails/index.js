@@ -9,6 +9,7 @@ import StarRate from "@mui/icons-material/StarRate";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
+import MovieRating from "../movieRating";
 
 
 const root = {
@@ -23,8 +24,9 @@ const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
- 
+  const [rating, setRating] = useState(0);
 
+  
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -76,12 +78,12 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         </li>
             <Chip label={`${movie.original_language}`} sx={{ margin: 0.5 }} />
           
-        
       </Paper>
+      
       <Fab
         color="secondary"
         variant="extended"
-        onClick={() =>setDrawerOpen(true)}
+        onClick={() =>setDrawerOpen('reviews')}
         sx={{
           position: 'fixed',
           bottom: '1em',
@@ -91,9 +93,39 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <NavigationIcon />
         Reviews
       </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <MovieReviews movie={movie} />
+      <Fab
+        color="secondary"
+        variant="extended"
+        onClick={() =>setDrawerOpen('rating')}
+        sx={{
+          position: 'fixed',
+          bottom: '1em',
+          right: '10em'
+        }}
+      >
+        <NavigationIcon />
+        StarRate
+      </Fab>
+      <Drawer
+        anchor="top"
+        open={drawerOpen !== false} 
+        onClose={() => setDrawerOpen(false)} 
+      >
+        {drawerOpen === 'reviews' ? (
+          <MovieReviews movie={movie} />
+        ) : drawerOpen === 'rating' ? (
+          <div style={{ padding: '20px' }}>
+           
+            <MovieRating
+              name="movie-rating"
+              value={rating}
+              onChange={(event, newValue) => setRating(newValue)} 
+            />
+            
+          </div>
+        ) : null}
       </Drawer>
+
       </>
   );
 };

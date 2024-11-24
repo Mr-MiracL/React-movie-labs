@@ -31,6 +31,7 @@ export const getMovie = (args) => {
     throw error
  });
 };
+
   export const getGenres = () => {
     return fetch(
       "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
@@ -49,9 +50,10 @@ export const getMovie = (args) => {
    });
   };
   
-export const getLanguages=()=>{
+export const getCountries=()=>{
+  
   return fetch(
-    `https://api.themoviedb.org/3/configuration/languages?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    `https://api.themoviedb.org/3/configuration/countries?api_key=${process.env.REACT_APP_TMDB_KEY}`
 
   ).then( (response) => {
     if (!response.ok) {
@@ -65,6 +67,26 @@ export const getLanguages=()=>{
     throw error
  });
 };
+export const getAddRate=(args)=>{
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/rating?api_key=${process.env.REACT_APP_TMDB_KEY}&guest_session_id=8
+    'Content-Type' : 'application/json;charset=utf-8'`
+
+  ).then( (response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    throw error
+ });
+};
+
 
   export const getMovieImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
