@@ -7,7 +7,7 @@ import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 
 const NowPlayingPage = (props) => {
 
-    const {  data, error, isLoading, isError }  = useQuery('discover', getNowPlayings)
+    const {  data, error, isLoading, isError }  = useQuery('nowplaying', getNowPlayings)
   
     if (isLoading) {
       return <Spinner />
