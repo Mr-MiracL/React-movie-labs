@@ -23,12 +23,12 @@ New Rating function is added on the movieDetailPage.
 
 ## API endpoints.
     + Discover list of upcoming movies - movie/upcoming
-    + Discover list of now_playing movies - movie now_playing
+    + Discover list of now_playing movies - movie/now_playing
     + Discover list of popular movies - movie/popular
     + get movie language - configuration/languages
-    + Get movie credits - movie/${id}/credits
-    + Get actor details - person/${id}
-    + Get actor movies - getActorMovies
+    + Get movie credits - movie/{movie.id}/credits
+    + Get actor details - person/{movie.id}
+    + Get actor movies - person/{movie.id}/movie_credits
 
 ## Routing.
     + movies/nowPlaying - Get a list of movies that are currently in theatres.
