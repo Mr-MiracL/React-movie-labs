@@ -3,11 +3,10 @@ import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
-
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const [countryFilter, setCountryFilter] = useState("");
+  const [languageFilter, setLanguageFilter] = useState("");
   const genreId = Number(genreFilter);
   
 
@@ -20,13 +19,13 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
   
-      return countryFilter ? m.Country === countryFilter : true;
+      return languageFilter ? m.language === languageFilter : true;
     });
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
-    else if (type === "Country") setCountryFilter(value);  // Handle Country filter
+    else if (type === "Language") setLanguageFilter(value);  
   };
   
 
@@ -45,7 +44,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
-            CountryFilter={countryFilter}
+            languageFilter={languageFilter}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>

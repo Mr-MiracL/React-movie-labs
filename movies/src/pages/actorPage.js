@@ -60,7 +60,6 @@ const MovieCard = ({ movie }) => {
 const ActorPage = () => {
   const { id } = useParams();
 
-  // get info
   const {
     data: actor,
     isLoading: isActorLoading,
@@ -68,7 +67,6 @@ const ActorPage = () => {
     error: actorError,
   } = useQuery(["actor", { id }], () => getActorDetails(id));
 
-  // get movies
   const {
     data: movies,
     isLoading: isMoviesLoading,
